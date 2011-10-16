@@ -13,9 +13,9 @@ namespace BabyDazzler.Dazzlers
         private Random random;
         private Shape shape;
 
-        public VisualDazzleObj(double maxSize)
+        public VisualDazzleObj(double maxSize, Random random)
         {
-            random = new Random();
+            this.random = random;
             shape = randomShape();
 
             // if successfully made, set height and width.

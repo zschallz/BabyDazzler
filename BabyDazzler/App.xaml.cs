@@ -16,8 +16,8 @@ namespace BabyDazzler
     public partial class App : Application
     {
         private MainWindow mw;
-
         private KeyboardListener KListener = new KeyboardListener();
+        delegate void AddShapeDelegate();
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
@@ -27,12 +27,9 @@ namespace BabyDazzler
             KListener.KeyDown += new RawKeyEventHandler(KListener_KeyDown);
         }
 
-        delegate void AddShapeDelegate();
         void KListener_KeyDown(object sender, RawKeyEventArgs args)
         {
             mw.WindowCanvas.Dispatcher.BeginInvoke(new AddShapeDelegate( () =>  { mw.AddShape(); }), null);
-            //mw.Dispatcher.BeginInvoke(
-            //mw.AddShape();
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)

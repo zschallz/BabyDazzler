@@ -54,14 +54,21 @@ namespace BabyDazzler
 
         public void AddShape()
         {
-            VisualDazzleObj visDazzle = new VisualDazzleObj((this.Height * .20));
+            const int NUM_SHAPES_TO_ADD = 5;
 
-            Shape visDazzelView = visDazzle.GetView();
+            VisualDazzleObj visDazzle;
 
-            Canvas.SetTop(visDazzelView, random.Next(Convert.ToInt32(this.Height)));
-            Canvas.SetLeft(visDazzelView, random.Next(Convert.ToInt32(this.Width)));
+            for (int i = 0; i < NUM_SHAPES_TO_ADD; i++)
+            {
+                visDazzle = new VisualDazzleObj((this.Height * .20), random);
 
-            WindowCanvas.Children.Add(visDazzelView);
+                Shape visDazzelView = visDazzle.GetView();
+
+                Canvas.SetTop(visDazzelView, random.Next(Convert.ToInt32(this.Height)));
+                Canvas.SetLeft(visDazzelView, random.Next(Convert.ToInt32(this.Width)));
+
+                WindowCanvas.Children.Add(visDazzelView);
+            }
         }
 
         public void DrawFrame()
