@@ -88,15 +88,16 @@ namespace BabyDazzler.Dazzlers
 
         private Color getRandomColor()
         {
-            return Color.FromRgb(Convert.ToByte(random.Next(255)),
-                                 Convert.ToByte(random.Next(255)), 
-                                 Convert.ToByte(random.Next(255)));
+            return Color.FromArgb(255,
+                                  Convert.ToByte(random.Next(255)),
+                                  Convert.ToByte(random.Next(255)), 
+                                  Convert.ToByte(random.Next(255)));
         }
 
         // For now, minimum size is 20% of the maximum size.
-        private double getMinSize(double maxWidth)
+        private double getMinSize(double maxSize)
         {
-            return maxWidth * .20;
+            return maxSize * .20;
         }
     }
 }

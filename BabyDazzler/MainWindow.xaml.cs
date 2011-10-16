@@ -22,9 +22,11 @@ namespace BabyDazzler
     public partial class MainWindow : Window
     {
         private DispatcherTimer frameTimer;
+        private Random random;
 
         public MainWindow()
         {
+            random = new Random();
             // Construct timer that fires around 30 times per second (30 FPS)
             // Todo: get rid of magic number.
             frameTimer = initTimer();
@@ -57,7 +59,6 @@ namespace BabyDazzler
 
         public void DrawFrame()
         {
-            Random random = new Random();
             //VisualDazzleObj visDazzle = new VisualDazzleObj((this.Height * .20), (this.Width * .20));
 
             VisualDazzleObj visDazzle = new VisualDazzleObj((this.Height * .20));
