@@ -3,24 +3,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Shapes;
+using System.Windows.Media;
 using System.Windows.Controls;
 
 namespace BabyDazzler.Dazzlers
 {
     class VisualDazzleObj
     {
+        private Random random;
         private Shape shape;
 
-        public VisualDazzleObj()
+        public VisualDazzleObj(double maxSize)
         {
-            this.shape = randomShape();
+            random = new Random();
+            shape = randomShape();
+
+            // if successfully made, set height and width.
+            if (shape != null)
+            {
+                int size = random.Next(Convert.ToInt32(getMinSize(maxSize)), Convert.ToInt32(maxSize));
+
+                shape.Width = size;
+                shape.Height = size;
+            }
         }
 
         private Shape randomShape()
         {
-            Random random = new Random();
-            int randomNum = random.Next(0, 2);
+            // Generate random number
+            //int randomNum = random.Next(0, 2);
 
+            // debug exclude triangle
+            int randomNum = random.Next(0, 2);
+            // end debug
+
+            // Build different shape depending on the number generated (expects 1, 2 or 3).
             switch (randomNum)
             {
                 case 0:
@@ -42,17 +59,44 @@ namespace BabyDazzler.Dazzlers
 
         private Rectangle buildRectangle()
         {
-            throw new NotImplementedException();
+            // Create Ellipse object
+            Rectangle r = new Rectangle();
+            SolidColorBrush colorBrush = new SolidColorBrush();
+            colorBrush.Color = getRandomColor();
+
+            r.Fill = colorBrush;
+
+            return r;
         }
 
         private Ellipse buildEllipse()
         {
-            throw new NotImplementedException();
+            // Create Ellipse object
+            Ellipse e = new Ellipse();
+            SolidColorBrush colorBrush = new SolidColorBrush();
+            colorBrush.Color = getRandomColor();
+
+            e.Fill = colorBrush;
+
+            return e;
         }
 
-        public StackPanel GetView()
+        public Shape GetView()
         {
-            throw new NotImplementedException();
+            return shape;
+        }
+
+        private Color getRandomColor()
+        {
+            return Color.FromRgb(Convert.ToByte(random.Next(255)),
+                                 Convert.ToByte(random.Next(255)), 
+                                 Convert.ToByte(random.Next(255)));
+        }
+
+        // For now, minimum size is 20% of the maximum size.
+        private double getMinSize(double maxWidth)
+        {
+            return maxWidth * .20;
         }
     }
 }

@@ -11,6 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
+using BabyDazzler.Dazzlers;
 
 namespace BabyDazzler
 {
@@ -19,42 +21,53 @@ namespace BabyDazzler
     /// </summary>
     public partial class MainWindow : Window
     {
+        private DispatcherTimer frameTimer;
+
         public MainWindow()
         {
+            // Construct timer that fires around 30 times per second (30 FPS)
+            // Todo: get rid of magic number.
+            frameTimer = initTimer();
+
             InitializeComponent();
 
-            DrawShape();
+            frameTimer.Start();
         }
 
-        public void DrawShape()
+        private DispatcherTimer initTimer()
         {
-            // Test code
+            int framesPerSecond = 30;
 
-            // Create a StackPanel to contain the shape.
-            StackPanel myStackPanel = new StackPanel();
+            // Construct timer that fires 30 times per second (30 FPS)
+            DispatcherTimer t = new DispatcherTimer();
 
-            // Create a red Ellipse.
-            Ellipse myEllipse = new Ellipse();
+            t.Interval = TimeSpan.FromMilliseconds(1000 / framesPerSecond);
 
-            // Create a SolidColorBrush with a red color to fill the 
-            // Ellipse with.
-            SolidColorBrush mySolidColorBrush = new SolidColorBrush();
+            t.Tick += new EventHandler(refreshFrameEvent);
 
-            // Describes the brush's color using RGB values. 
-            // Each value has a range of 0-255.
-            mySolidColorBrush.Color = Color.FromArgb(255, 255, 255, 0);
-            myEllipse.Fill = mySolidColorBrush;
-            myEllipse.StrokeThickness = 2;
-            myEllipse.Stroke = Brushes.White;
+            return t;
+        }
 
-            // Set the width and height of the Ellipse.
-            myEllipse.Width = 200;
-            myEllipse.Height = 100;
+        private void refreshFrameEvent(object sender, EventArgs e)
+        {
+            DrawFrame();
+        }
 
-            // Add the Ellipse to the StackPanel.
-            myStackPanel.Children.Add(myEllipse);
 
-            WindowGrid.Children.Add(myStackPanel);
+
+        public void DrawFrame()
+        {
+            Random random = new Random();
+            //VisualDazzleObj visDazzle = new VisualDazzleObj((this.Height * .20), (this.Width * .20));
+
+            VisualDazzleObj visDazzle = new VisualDazzleObj((this.Height * .20));
+
+            Shape visDazzelView = visDazzle.GetView();
+            
+            Canvas.SetTop(visDazzelView, random.Next(Convert.ToInt32(this.Height)));
+            Canvas.SetLeft(visDazzelView, random.Next(Convert.ToInt32(this.Width)));
+
+            WindowCanvas.Children.Add(visDazzelView);
         }
     }
 }
