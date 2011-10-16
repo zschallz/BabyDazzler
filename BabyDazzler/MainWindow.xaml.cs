@@ -38,12 +38,9 @@ namespace BabyDazzler
 
         private DispatcherTimer initTimer()
         {
-            int framesPerSecond = 30;
-
-            // Construct timer that fires 30 times per second (30 FPS)
             DispatcherTimer t = new DispatcherTimer();
-
-            t.Interval = TimeSpan.FromMilliseconds(1000 / framesPerSecond);
+            //TODO: Fix magic number
+            t.Interval = TimeSpan.FromMilliseconds(10);
 
             t.Tick += new EventHandler(refreshFrameEvent);
 
@@ -59,7 +56,35 @@ namespace BabyDazzler
 
         public void DrawFrame()
         {
-            //VisualDazzleObj visDazzle = new VisualDazzleObj((this.Height * .20), (this.Width * .20));
+            /* Go through WindowCanvas's children and lower the shapes' alpha count. Fully transparent 
+             * shapes get removed for GC.
+             */
+            List<Shape> shapesToRemove = new List<Shape>();
+            SolidColorBrush brush;
+            Color color;
+
+            foreach (Shape s in WindowCanvas.Children)
+            { 
+                brush = (SolidColorBrush) s.Fill;
+                // Copy color object
+                color = brush.Color;
+                
+                if (color.A > 1)
+                {
+                    color.A--;
+                    ((SolidColorBrush)s.Fill).Color = color;
+                }
+                else
+                {
+                    /* This one is fully transparent. Mark for removal */
+                    shapesToRemove.Add(s);
+                }
+            }
+
+            foreach (Shape s in shapesToRemove)
+            {
+                WindowCanvas.Children.Remove(s);
+            }
 
             VisualDazzleObj visDazzle = new VisualDazzleObj((this.Height * .20));
 
