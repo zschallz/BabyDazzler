@@ -52,7 +52,17 @@ namespace BabyDazzler
             DrawFrame();
         }
 
+        public void AddShape()
+        {
+            VisualDazzleObj visDazzle = new VisualDazzleObj((this.Height * .20));
 
+            Shape visDazzelView = visDazzle.GetView();
+
+            Canvas.SetTop(visDazzelView, random.Next(Convert.ToInt32(this.Height)));
+            Canvas.SetLeft(visDazzelView, random.Next(Convert.ToInt32(this.Width)));
+
+            WindowCanvas.Children.Add(visDazzelView);
+        }
 
         public void DrawFrame()
         {
@@ -85,15 +95,6 @@ namespace BabyDazzler
             {
                 WindowCanvas.Children.Remove(s);
             }
-
-            VisualDazzleObj visDazzle = new VisualDazzleObj((this.Height * .20));
-
-            Shape visDazzelView = visDazzle.GetView();
-            
-            Canvas.SetTop(visDazzelView, random.Next(Convert.ToInt32(this.Height)));
-            Canvas.SetLeft(visDazzelView, random.Next(Convert.ToInt32(this.Width)));
-
-            WindowCanvas.Children.Add(visDazzelView);
         }
     }
 }
