@@ -12,7 +12,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using System.Media;
+using System.Resources;
 using BabyDazzler.Dazzlers;
+using BabyDazzler.Util;
 
 namespace BabyDazzler
 {
@@ -21,6 +24,7 @@ namespace BabyDazzler
     /// </summary>
     public partial class MainWindow : Window
     {
+        private SoundPlayer player;
         private DispatcherTimer frameTimer;
         private Random random;
 
@@ -30,6 +34,10 @@ namespace BabyDazzler
             // Construct timer that fires around 30 times per second (30 FPS)
             // Todo: get rid of magic number.
             frameTimer = initTimer();
+
+            player = new SoundPlayer();
+            player.SoundLocation = "pop.wav";
+            player.Load();
 
             InitializeComponent();
 
@@ -69,6 +77,16 @@ namespace BabyDazzler
 
                 WindowCanvas.Children.Add(visDazzelView);
             }
+
+            /* TODO: Refactor to use resource manager */
+            SoundPlayerWrapper.PlaySound("pop.wav");
+           
+        }
+
+        private void playSound()
+        {
+//            this.player.
+            this.player.PlaySync();
         }
 
         public void DrawFrame()

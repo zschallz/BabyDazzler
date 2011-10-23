@@ -31,7 +31,7 @@ namespace BabyDazzler.Dazzlers
         private Shape randomShape()
         {
             // Generate random number
-            //int randomNum = random.Next(0, 2);
+            //int randomNum = random.Next(0, 3);
 
             // debug exclude triangle
             int randomNum = random.Next(0, 2);
