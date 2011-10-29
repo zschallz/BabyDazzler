@@ -1,5 +1,8 @@
 This is the repository for the BabyDazzler project. BabyDazzler will be a simple program that creates random shapes accompanied by sounds when keys are pressed. This program is intended to entertain laptop-bashing babies for short periods of time.
 
+All sounds are from Freesound.org and are licensed under the Creative Commons Attribution license.:
+http://www.freesound.org/people/juskiddink/
+
 This project is mainly meant to serve as a toy for my child, and a quick WPF learning project for me.
 
 As of October 16th this project is a work-in-progress, and is not yet fully featured.

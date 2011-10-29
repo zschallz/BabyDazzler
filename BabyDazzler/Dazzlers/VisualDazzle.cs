@@ -8,12 +8,12 @@ using System.Windows.Controls;
 
 namespace BabyDazzler.Dazzlers
 {
-    class VisualDazzleObj
+    class VisualDazzle
     {
         private Random random;
         private Shape shape;
 
-        public VisualDazzleObj(double maxSize, Random random)
+        public VisualDazzle(double maxSize, Random random)
         {
             this.random = random;
             shape = randomShape();

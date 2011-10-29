@@ -70,6 +70,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Dazzlers\SoundDazzle.cs" />
+    <Compile Include="Util\SimpleLogger.cs" />
     <Compile Include="Util\SoundPlayerWrapper.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -79,7 +81,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Dazzlers\VisualDazzleObj.cs" />
+    <Compile Include="Dazzlers\VisualDazzle.cs" />
     <Compile Include="Util\KeyboardListener.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -134,6 +136,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\pop.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\f_major_3rd.wav" />
+    <Content Include="Assets\f_major_4th.wav" />
+    <Content Include="Assets\f_major_5th.wav" />
+    <Content Include="Assets\f_minor_3rd.wav" />
+    <Content Include="Assets\f_minor_4th.wav" />
+    <Content Include="Assets\f_minor_5th.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

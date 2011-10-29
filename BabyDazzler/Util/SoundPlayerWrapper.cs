@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Media;
+using System.IO;
 
 namespace BabyDazzler.Util
 {
@@ -14,16 +15,16 @@ namespace BabyDazzler.Util
 
         private static Thread soundThread;
 
-        /* Until resource handling is implemented, take file name
-         * 
-         * TODO: Change to accept a resource 
-         */
-        static public void PlaySound(String fileName)
-        {
-            soundPlayer = new SoundPlayer(fileName);
+        static public void PlaySound(Stream stream)
+        {            
+            soundPlayer = new SoundPlayer(stream);
+            startThread();
+        }
 
-            if (soundThread == null 
-                || soundThread.ThreadState == ThreadState.Stopped)
+        static private void startThread()
+        {
+            if (soundThread == null
+                || soundThread.ThreadState != ThreadState.Running)
             {
                 soundThread = new Thread(new ThreadStart(soundRun));
                 soundThread.Start();

@@ -1,10 +1,12 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Windows;
 using BabyDazzler.Util;
+using BabyDazzler.Dazzlers;
 
 namespace BabyDazzler
 {
@@ -29,7 +31,9 @@ namespace BabyDazzler
 
         void KListener_KeyDown(object sender, RawKeyEventArgs args)
         {
-            mw.WindowCanvas.Dispatcher.BeginInvoke(new AddShapeDelegate( () =>  { mw.AddShape(); }), null);
+            mw.WindowCanvas.Dispatcher.BeginInvoke(new AddShapeDelegate( () =>  { mw.HandleKeystroke(); }), null);
+
+            SoundDazzle sd = new SoundDazzle(args.Key);
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)

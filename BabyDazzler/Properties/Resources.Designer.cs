@@ -60,6 +60,42 @@ namespace BabyDazzler.Properties {
             }
         }
         
+        internal static System.IO.UnmanagedMemoryStream f_major_3rd {
+            get {
+                return ResourceManager.GetStream("f_major_3rd", resourceCulture);
+            }
+        }
+        
+        internal static System.IO.UnmanagedMemoryStream f_major_4th {
+            get {
+                return ResourceManager.GetStream("f_major_4th", resourceCulture);
+            }
+        }
+        
+        internal static System.IO.UnmanagedMemoryStream f_major_5th {
+            get {
+                return ResourceManager.GetStream("f_major_5th", resourceCulture);
+            }
+        }
+        
+        internal static System.IO.UnmanagedMemoryStream f_minor_3rd {
+            get {
+                return ResourceManager.GetStream("f_minor_3rd", resourceCulture);
+            }
+        }
+        
+        internal static System.IO.UnmanagedMemoryStream f_minor_4th {
+            get {
+                return ResourceManager.GetStream("f_minor_4th", resourceCulture);
+            }
+        }
+        
+        internal static System.IO.UnmanagedMemoryStream f_minor_5th {
+            get {
+                return ResourceManager.GetStream("f_minor_5th", resourceCulture);
+            }
+        }
+        
         internal static System.IO.UnmanagedMemoryStream pop {
             get {
                 return ResourceManager.GetStream("pop", resourceCulture);

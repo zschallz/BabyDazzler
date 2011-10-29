@@ -24,7 +24,6 @@ namespace BabyDazzler
     /// </summary>
     public partial class MainWindow : Window
     {
-        private SoundPlayer player;
         private DispatcherTimer frameTimer;
         private Random random;
 
@@ -34,10 +33,6 @@ namespace BabyDazzler
             // Construct timer that fires around 30 times per second (30 FPS)
             // Todo: get rid of magic number.
             frameTimer = initTimer();
-
-            player = new SoundPlayer();
-            player.SoundLocation = "pop.wav";
-            player.Load();
 
             InitializeComponent();
 
@@ -60,40 +55,37 @@ namespace BabyDazzler
             DrawFrame();
         }
 
-        public void AddShape()
+        public void HandleKeystroke()
         {
+            /* Define total number of shapes per keystroke to add here */
             const int NUM_SHAPES_TO_ADD = 5;
 
-            VisualDazzleObj visDazzle;
+            VisualDazzle visDazzle;
 
             for (int i = 0; i < NUM_SHAPES_TO_ADD; i++)
             {
-                visDazzle = new VisualDazzleObj((this.Height * .20), random);
+                /* Create a new visual dazzler thats at least 20% of the window's size */
+                visDazzle = new VisualDazzle((this.Height * .20), random);
 
                 Shape visDazzelView = visDazzle.GetView();
 
+                /* Position shape from the visual dazzler in a random location on the
+                 * canvas and add it to the canvas. */
                 Canvas.SetTop(visDazzelView, random.Next(Convert.ToInt32(this.Height)));
                 Canvas.SetLeft(visDazzelView, random.Next(Convert.ToInt32(this.Width)));
 
                 WindowCanvas.Children.Add(visDazzelView);
             }
 
-            /* TODO: Refactor to use resource manager */
-            SoundPlayerWrapper.PlaySound("pop.wav");
-           
+            /* TODO: Check into whether dynamic resource lookup will be needed. */
+            //SoundDazzle sd = new SoundDazzle(key);
+            //SoundPlayerWrapper.PlaySound(BabyDazzler.Properties.Resources.f_major_3rd);
+
         }
 
-        private void playSound()
-        {
-//            this.player.
-            this.player.PlaySync();
-        }
-
+        /* This method is called every time that a frame is to be served (from the timer) */
         public void DrawFrame()
         {
-            /* Go through WindowCanvas's children and lower the shapes' alpha count. Fully transparent 
-             * shapes get removed for GC.
-             */
             List<Shape> shapesToRemove = new List<Shape>();
             SolidColorBrush brush;
             Color color;
@@ -104,8 +96,11 @@ namespace BabyDazzler
                 // Copy color object
                 color = brush.Color;
                 
+                /* As long as the shape is not fully transparent */
                 if (color.A > 1)
                 {
+                    /* Lower the alpha level of each shape and update
+                     * the shape's color to reflect the lower alpha level */
                     color.A--;
                     ((SolidColorBrush)s.Fill).Color = color;
                 }
@@ -116,6 +111,8 @@ namespace BabyDazzler
                 }
             }
 
+            /* Remove all shapes that are marked for removal from the Canvas
+             * so that they can be disposed of */
             foreach (Shape s in shapesToRemove)
             {
                 WindowCanvas.Children.Remove(s);
